@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskFilter = document.getElementById('task-filter');
     const tableHeaders = document.querySelectorAll('#task-table th[data-sort]');
     const dueDateInput = document.getElementById('task-due-date');
+    const submitButton = taskForm.querySelector('button[type="submit"]');
 
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     let sortOrder = 'asc';
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTasks(tasks);
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
+        submitButton.textContent = 'Add Task'; // Reset button text
     }
 
     function handleTaskClick(e) {
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('task-desc').value = task.desc;
         document.getElementById('task-due-date').value = task.dueDate;
         document.getElementById('task-id').value = task.id;
+        submitButton.textContent = 'Edit Task'; // Change button text to "Edit Task"
     }
 
     function editTask(e) {
@@ -118,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTasks(tasks);
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
+        submitButton.textContent = 'Add Task'; // Reset button text
     }
 
     function toggleTaskCompletion(id) {
@@ -184,9 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${task.completed ? 'Completed' : 'Incomplete'}</td>
                 <td>${task.dueDate}</td>
                 <td class="actions">
-                    <button class="${task.completed ? 'undo' : 'complete'}" ${task.completed && isPastDue ? 'style="display:none;"' : ''}>${task.completed ? 'Undo' : 'Complete'}</button>
-                    ${!task.completed ? '<button class="edit">Edit</button>' : ''}
-                    <button class="delete">Delete</button>
+                    <button class="${task.completed ? 'undo' : 'complete'}" ${task.completed && isPastDue ? 'style="display:none;"' : ''}>
+                        <i class="fas ${task.completed ? 'fa-undo' : 'fa-check'}"></i>
+                        <span class="button-text">${task.completed ? 'Undo' : 'Complete'}</span>
+                    </button>
+                    ${!task.completed ? '<button class="edit"><i class="fas fa-edit"></i><span class="button-text">Edit</span></button>' : ''}
+                    <button class="delete"><i class="fas fa-trash"></i><span class="button-text">Delete</span></button>
                 </td>
             `;
             taskList.appendChild(tr);
