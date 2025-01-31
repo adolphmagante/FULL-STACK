@@ -1,0 +1,202 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+form input, form textarea, form button, form select {
+    margin: 5px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.filters select, .filters input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+li button {
+    margin-left: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-family: inherit;
+}
+
+th {
+    background-color: #f8f8f8;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: #e0e0e0;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr.completed td:not(.actions) {
+    text-decoration: line-through;
+    color: #888;
+}
+
+td button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-family: inherit;
+}
+
+td button.complete {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+td button.edit {
+    background-color: #ffc107; /* Amber */
+    color: white;
+}
+
+td button.delete {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+td button.undo {
+    background-color: #17a2b8; /* Blue */
+    color: white;
+}
+
+td button.complete:hover {
+    background-color: #218838;
+}
+
+td button.edit:hover {
+    background-color: #e0a800;
+}
+
+td button.delete:hover {
+    background-color: #c82333;
+}
+
+td button.undo:hover {
+    background-color: #138496;
+}
+
+/* Add line between buttons */
+td button + button {
+    margin-left: 10px;
+    border-left: 1px solid #ddd;
+    padding-left: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters select, .filters input {
+        margin-bottom: 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
