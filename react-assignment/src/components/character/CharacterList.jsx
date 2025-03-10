@@ -72,6 +72,18 @@ const CharacterList = () => {
           page={page}
           onChange={handleChangePage}
           color="primary"
+          sx={{
+            '& .Mui-selected': {
+              backgroundColor: '#61dafb',
+              color: '#fff',
+            },
+            '& .MuiPaginationItem-root': {
+              '&:hover': {
+                backgroundColor: '#61dafb',
+                color: '#fff',
+              },
+            },
+          }}
         />
       </Box>
     </Box>
