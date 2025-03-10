@@ -37,7 +37,7 @@ const CharacterList = () => {
   const paginatedCharacters = filteredCharacters.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <Box p={2}>
+    <Box p={2} sx={{ boxShadow: 3  }}>
       <Box display="flex" justifyContent="space-between" marginBottom={2} direction={{ md: "column" }}>
           <Search />
           <Sort />

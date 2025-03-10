@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Divider, Stack } from '@mui/material';
+import { Box, Button, Chip, Stack } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAllFilters, removeFilter } from '../redux/character/slice';
