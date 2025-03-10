@@ -19,7 +19,7 @@ const FilterItems = () => {
         <>
             {filteredItems && Object.keys(filteredItems).length > 0 && (
                 <Box p={1}>
-                    <Stack direction="row" spacing={1} divider={<Divider orientation="vertical" flexItem />} flexWrap="wrap">
+                    <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
                         {Object.keys(filteredItems).map((key) => (
                             Array.isArray(filteredItems[key]) ? filteredItems[key].map((value, i) => (
                                 <Chip

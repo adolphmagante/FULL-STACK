@@ -20,6 +20,9 @@ const characterSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    setSortOrder(state, action) {
+      state.sortOrder = action.payload;
+    },
     setFilters(state, action) {
       const { name, value, checked } = action.payload;
       if (!state.filters[name]) {
@@ -45,9 +48,6 @@ const characterSlice = createSlice({
     },
     removeAllFilters(state) {
       state.filters = {};
-    },
-    setSortOrder(state, action) {
-      state.sortOrder = action.payload;
     }
   },
   extraReducers: (builder) => {

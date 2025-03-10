@@ -36,7 +36,7 @@ const CharacterCard = ({ character }) => {
 
   return (
     <Card sx={{ backgroundColor: '#1c1c1c' }}>
-      <Box position='relative' sx={{ height: { xl: 250, lg: 200, md: 200 }, overflow: 'hidden' }}>
+      <Box position='relative' sx={{ height: { xl: 250, lg: 200}, overflow: 'hidden' }}>
         <CardMedia
           component='img'
           image={character.image}
@@ -67,15 +67,15 @@ const CharacterCard = ({ character }) => {
       <CardContent sx={{ height: 200 }} >
         <Stack
           direction="column"
-          divider={<Divider orientation="horizontal" flexItem />}
+          divider={<Divider orientation="horizontal" flexItem color="white"/>}
           spacing={1}
         >
           {fields.map((field, index) => (
-            <Stack key={index} direction="row" sx={{ justifyContent: "space-between", alignItems: "flex-start" }}>
-              <Typography align='left' variant="body2" color="white" sx={{ wordBreak: 'break-word' }}>
+            <Stack key={index} direction="row" sx={{ justifyContent: "space-between", alignItems: "flex-start" }} spacing={1}>
+              <Typography align='left' variant="body2" color="white" sx={{ wordBreak: 'break-word', fontSize: { lg: '0.8rem', xl: '1rem' }, fontWeight: 'bold' }}>
                 {field.label}
               </Typography>
-              <Typography align='right' variant="body2" color="orange" sx={{ wordBreak: 'break-word' }}>
+              <Typography align='right' variant="body2" color="orange" sx={{ wordBreak: 'break-word', fontSize: { lg: '0.8rem', xl: '1rem' } }}>
                 {field.value}
               </Typography>
             </Stack>

@@ -38,7 +38,7 @@ const CharacterList = () => {
 
   return (
     <Box p={2}>
-      <Box display="flex" justifyContent="space-between" marginBottom={2}>
+      <Box display="flex" justifyContent="space-between" marginBottom={2} direction={{ md: "column" }}>
           <Search />
           <Sort />
       </Box>
