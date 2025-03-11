@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (new Date(dueDate) < new Date(today)) {
+        const initialDueDate = document.getElementById('task-id').value ? tasks.find(task => task.id == document.getElementById('task-id').value).dueDate : null;
+        if (new Date(dueDate) < new Date(today) && dueDate !== initialDueDate) {
             alert('Due date cannot be in the past.');
             return;
         }
