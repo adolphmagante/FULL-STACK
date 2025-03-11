@@ -1,7 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin: 1;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     max-width: 100%;
     background: #fff;
     padding: 40px;
@@ -97,6 +97,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed;
 }
 
 th, td {
@@ -105,6 +106,7 @@ th, td {
     text-align: left;
     font-family: inherit;
     box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 th {
@@ -126,6 +128,10 @@ tr.completed td:not(.actions) {
     color: #888;
 }
 
+td {
+    position: relative;
+}
+
 td button {
     margin-left: 5px;
     padding: 5px 10px;
@@ -134,6 +140,10 @@ td button {
     border-radius: 4px;
     transition: background-color 0.3s;
     font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 td button.complete {
@@ -175,8 +185,6 @@ td button.undo:hover {
 /* Add line between buttons */
 td button + button {
     margin-left: 10px;
-    border-left: 1px solid #ddd;
-    padding-left: 10px;
 }
 
 /* Responsive Design */
@@ -191,8 +199,13 @@ td button + button {
         padding: 20px;
     }
 
-    form {
-        flex-direction: column;
+    h1 {
+        font-size: 24px;
+    }
+
+    form input, form textarea, form button, form select {
+        font-size: 14px;
+        padding: 8px;
     }
 
     .filters {
@@ -212,9 +225,15 @@ td button + button {
         padding: 8px;
     }
 
+    .actions {
+        display: flex;
+        flex-direction: column;
+    }
+
     .actions button {
         padding: 5px;
         font-size: 14px;
+        margin-bottom: 5px;
     }
 
     .actions button i {
@@ -226,7 +245,39 @@ td button + button {
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 1024px) {
+    .actions {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .actions button {
+        padding: 5px 10px;
+        font-size: 14px;
+        margin: 0 5px;
+    }
+
+    .actions button i {
+        display: none;
+    }
+
+    .actions .button-text {
+        display: inline;
+    }
+}
+
+@media (min-width: 1025px) {
+    .actions {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .actions button {
+        padding: 5px 10px;
+        font-size: 14px;
+        margin: 0 5px;
+    }
+
     .actions button i {
         display: none;
     }

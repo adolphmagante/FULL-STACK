@@ -29,12 +29,12 @@ const characterSlice = createSlice({
       state.filters[name] = [];
       }
       if (checked) {
-      state.filters[name].push(value);
+        state.filters[name].push(value);
       } else {
-      state.filters[name] = state.filters[name].filter(item => item !== value);
-      if (state.filters[name].length === 0) {
-        delete state.filters[name];
-      }
+        state.filters[name] = state.filters[name].filter(item => item !== value);
+          if (state.filters[name].length === 0) {
+            delete state.filters[name];
+          }
       }
     },
     removeFilter(state, action) {

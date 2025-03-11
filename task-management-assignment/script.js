@@ -19,18 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const id = document.getElementById('task-id').value;
         if (id) {
-            editTask();
+            editTask(e);
         } else {
-            addTask();
+            addTask(e);
         }
     });
-
     taskList.addEventListener('click', handleTaskClick);
     searchInput.addEventListener('input', filterTasks);
     taskFilter.addEventListener('change', () => filterTasksByStatus(taskFilter.value));
     tableHeaders.forEach(header => header.addEventListener('click', () => sortTasksBy(header.dataset.sort)));
 
-    function addTask() {
+    function addTask(e) {
         const title = document.getElementById('task-title').value.trim();
         const desc = document.getElementById('task-desc').value.trim();
         const dueDate = document.getElementById('task-due-date').value;
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const task = {
-            id: tasks.length ? Math.max(...tasks.map(task => task.id)) + 1 : 1,
+            id: Date.now(),
             title,
             desc,
             dueDate,
@@ -55,21 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        renderTasks();
+        renderTasks(tasks);
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
         submitButton.textContent = 'Add Task'; // Reset button text
     }
 
     function handleTaskClick(e) {
-        const tr = e.target.closest('tr');
-        if (!tr) return;
-        const taskId = tr.dataset.id;
-        if (e.target.closest('button').classList.contains('delete')) {
+        if (e.target.classList.contains('delete')) {
+            const taskId = e.target.parentElement.parentElement.dataset.id;
             deleteTask(taskId);
-        } else if (e.target.closest('button').classList.contains('edit')) {
+        } else if (e.target.classList.contains('edit')) {
+            const taskId = e.target.parentElement.parentElement.dataset.id;
             populateEditForm(taskId);
-        } else if (e.target.closest('button').classList.contains('complete') || e.target.closest('button').classList.contains('undo')) {
+        } else if (e.target.classList.contains('complete')) {
+            const taskId = e.target.parentElement.parentElement.dataset.id;
+            toggleTaskCompletion(taskId);
+        } else if (e.target.classList.contains('undo')) {
+            const taskId = e.target.parentElement.parentElement.dataset.id;
             toggleTaskCompletion(taskId);
         }
     }
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (confirm('Are you sure you want to delete this task?')) {
             tasks = tasks.filter(task => task.id != id);
             localStorage.setItem('tasks', JSON.stringify(tasks));
-            renderTasks();
+            renderTasks(tasks);
         }
     }
 
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitButton.textContent = 'Edit Task'; // Change button text to "Edit Task"
     }
 
-    function editTask() {
+    function editTask(e) {
         const id = document.getElementById('task-id').value;
         const title = document.getElementById('task-title').value.trim();
         const desc = document.getElementById('task-desc').value.trim();
@@ -116,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        renderTasks();
+        renderTasks(tasks);
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
         submitButton.textContent = 'Add Task'; // Reset button text
@@ -153,10 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function sortTasksBy(column) {
         sortColumn = column;
         sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-        renderTasks();
+        renderTasks(tasks);
     }
 
-    function renderTasks(filteredTasks = tasks) {
+    function renderTasks(tasks) {
+        let filteredTasks = tasks;
+
+        // Apply current filter
+        const status = taskFilter.value;
+        if (status === 'completed') {
+            filteredTasks = tasks.filter(task => task.completed);
+        } else if (status === 'incomplete') {
+            filteredTasks = tasks.filter(task => !task.completed);
+        }
+
         // Apply sorting
         filteredTasks.sort((a, b) => {
             if (a[sortColumn] < b[sortColumn]) return sortOrder === 'asc' ? -1 : 1;
@@ -188,5 +200,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    renderTasks();
+    renderTasks(tasks);
 });
