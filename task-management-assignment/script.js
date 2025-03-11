@@ -61,17 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleTaskClick(e) {
-        if (e.target.classList.contains('delete')) {
-            const taskId = e.target.parentElement.parentElement.dataset.id;
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        if (button.classList.contains('delete')) {
+            const taskId = button.parentElement.parentElement.dataset.id;
             deleteTask(taskId);
-        } else if (e.target.classList.contains('edit')) {
-            const taskId = e.target.parentElement.parentElement.dataset.id;
+        } else if (button.classList.contains('edit')) {
+            const taskId = button.parentElement.parentElement.dataset.id;
             populateEditForm(taskId);
-        } else if (e.target.classList.contains('complete')) {
-            const taskId = e.target.parentElement.parentElement.dataset.id;
+        } else if (button.classList.contains('complete')) {
+            const taskId = button.parentElement.parentElement.dataset.id;
             toggleTaskCompletion(taskId);
-        } else if (e.target.classList.contains('undo')) {
-            const taskId = e.target.parentElement.parentElement.dataset.id;
+        } else if (button.classList.contains('undo')) {
+            const taskId = button.parentElement.parentElement.dataset.id;
             toggleTaskCompletion(taskId);
         }
     }
