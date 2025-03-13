@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     taskList.addEventListener('click', handleTaskClick);
     searchInput.addEventListener('input', filterTasks);
-    taskFilter.addEventListener('change', () => filterTasksByStatus(taskFilter.value));
+    taskFilter.addEventListener('change', filterTasks);
     tableHeaders.forEach(header => header.addEventListener('click', () => sortTasksBy(header.dataset.sort)));
 
     function addTask(e) {
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        renderTasks(tasks);
+        filterTasks();
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
         submitButton.textContent = 'Add Task'; // Reset button text
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (confirm('Are you sure you want to delete this task?')) {
             tasks = tasks.filter(task => task.id != id);
             localStorage.setItem('tasks', JSON.stringify(tasks));
-            renderTasks(tasks);
+            filterTasks();
         }
     }
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        renderTasks(tasks);
+        filterTasks();
         taskForm.reset();
         document.getElementById('task-id').value = ''; // Clear the hidden input field
         submitButton.textContent = 'Add Task'; // Reset button text
@@ -132,27 +132,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const task = tasks.find(task => task.id == id);
         task.completed = !task.completed;
         localStorage.setItem('tasks', JSON.stringify(tasks));
-        filterTasksByStatus(taskFilter.value);
+        filterTasks();
     }
 
     function filterTasks() {
         const searchTerm = searchInput.value.toLowerCase();
-        const filteredTasks = tasks.filter(task => 
+        const status = taskFilter.value;
+        let filteredTasks = tasks.filter(task => 
             task.title.toLowerCase().includes(searchTerm) || 
             task.desc.toLowerCase().includes(searchTerm)
         );
-        renderTasks(filteredTasks);
-    }
 
-    function filterTasksByStatus(status) {
-        let filteredTasks;
         if (status === 'completed') {
-            filteredTasks = tasks.filter(task => task.completed);
+            filteredTasks = filteredTasks.filter(task => task.completed);
         } else if (status === 'incomplete') {
-            filteredTasks = tasks.filter(task => !task.completed);
-        } else {
-            filteredTasks = tasks;
+            filteredTasks = filteredTasks.filter(task => !task.completed);
         }
+
         renderTasks(filteredTasks);
     }
 
@@ -175,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Apply sorting
         filteredTasks.sort((a, b) => {
-            if (a[sortColumn] < b[sortColumn]) return sortOrder === 'asc' ? -1 : 1;
-            if (a[sortColumn] > b[sortColumn]) return sortOrder === 'asc' ? 1 : -1;
+            if (a[sortColumn].toLowerCase() < b[sortColumn].toLowerCase()) return sortOrder === 'asc' ? -1 : 1;
+            if (a[sortColumn].toLowerCase() > b[sortColumn].toLowerCase()) return sortOrder === 'asc' ? 1 : -1;
             return 0;
         });
 
